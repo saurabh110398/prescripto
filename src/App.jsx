@@ -1,34 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
+import { Route, Routes } from "react-router-dom"
+import { assets } from "./assets/assets"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Contact from "./pages/Contact"
+import Doctors from "./pages/Doctors"
+import Login from "./pages/Login"
+import MyProfile from "./pages/MyProfile"
+import MyAppointments from "./pages/MyAppointments"
+import Appointment from "./pages/Appointment"
+import Navbar from "./components/Navbar"
+import Header from "./components/Header"
+// import './index.css'
+import './index.css';
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="px-10">
+      <Navbar/>
+      
+
+      <Routes>
+        <Route path='/' element={<Home />}></Route>
+        <Route path="/about" element={<About />}></Route>
+        <Route path='/contact' element={<Contact />}></Route>
+        <Route path="/doctors" element={<Doctors />}></Route>
+        <Route path="/doctors/:speciality" element={<Doctors />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/my-Appointments" element={<MyAppointments />}></Route>
+        <Route path="/appointment/:docId" element={<Appointment />}></Route>
+        <Route path="/myProfile" element={<MyProfile />}>Dr</Route>
+      </Routes>
+    </div>
   )
 }
 
