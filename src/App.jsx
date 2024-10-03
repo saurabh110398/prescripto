@@ -10,7 +10,7 @@ import MyProfile from "./pages/MyProfile"
 import MyAppointments from "./pages/MyAppointments"
 import Appointment from "./pages/Appointment"
 import Navbar from "./components/Navbar"
-import Header from "./components/Header"
+import Footer from "./components/Footer"
 // import './index.css'
 import './index.css';
 function App() {
@@ -20,7 +20,6 @@ function App() {
     <div className="px-10">
       <Navbar/>
       
-
       <Routes>
         <Route path='/' element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
@@ -32,6 +31,7 @@ function App() {
         <Route path="/appointment/:docId" element={<Appointment />}></Route>
         <Route path="/myProfile" element={<MyProfile />}>Dr</Route>
       </Routes>
+      <Footer/>
     </div>
   )
 }

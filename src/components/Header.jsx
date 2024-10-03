@@ -11,14 +11,11 @@ const Header = () => {
                     <img className='w-28' src={assets.group_profiles} alt="" />
                     <p>Simply browse through our extensive list of trusted doctors,<br className='hidden sm:block' /> schedule your appointment hassle-free.</p>
                 </div>
-                <a className='flex items-center gap-2 px-8 py-3 text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300 rounded-full bg-white text-black' href="">
+                <a className='flex items-center gap-2 px-8 py-3 text-sm m-auto md:m-0 hover:scale-105 transition-all duration-300 rounded-full bg-white text-black' href="/#speciality">
                     Book appointment <img className='w-3' src={assets.arrow_icon} alt="" />
                 </a>
-                {/* <button className='flex items-center text-gray-600 text-sm gap-2 px-8 py-3 rounded-full bg-white '>
-                Book appointment <img src={assets.arrow_icon} alt="" />
-                </button> */}
-
             </div>
+            
             {/* right side */}
             <div className='w-1/2 relative m-auto md:m-0  '>
                 <img className='w-full   md:absolute bottom-0 h-auto rounded-lg ' src={assets.header_img} alt="" />

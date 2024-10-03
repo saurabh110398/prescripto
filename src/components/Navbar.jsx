@@ -7,7 +7,7 @@ const Navbar = () => {
     let [token, setToken ] = useState(true)//true --> loggedin
     return (
         <div className='flex items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400'>
-            <img className='w-44' src={assets.logo} alt="" />
+            <img className='w-44 cursor-pointer' src={assets.logo} onClick={()=>{navigate('/')}} alt="" />
             <ul className='hidden md:flex justify-between font-medium gap-5'>
                 <NavLink to='/'>
                     <li className='py-1'>Home</li>
