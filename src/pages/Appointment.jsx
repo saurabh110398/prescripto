@@ -7,19 +7,82 @@ const Appointment = () => {
 
   const { docId } = useParams();
   let { doctors, currencySymbol } = useContext(AppContext);
-  
-  let [docInfo, setDocInfo] = useState({});
+  const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+
+  const [docInfo, setDocInfo] = useState({});
+  const [docSlots, setDocSlots] = useState([]);
+  const [slotIndex, setSlotIndex] = useState(0);
+  const [slotTime, setSlotTime] = useState('');
 
   const fetchDocInfo = async () => {
     let presentDocInfo = doctors.find(ele => ele._id == docId);
     setDocInfo(presentDocInfo);
-    console.log('presentDocInfo:: ', presentDocInfo);
+    // console.log('presentDocInfo:: ', presentDocInfo);
 
   }
 
   useEffect(() => {
     fetchDocInfo();
+    getAvailableSlots();
   }, [docId, doctors])
+
+  useEffect(() => {
+    getAvailableSlots();
+  }, [docInfo])
+  useEffect(() => {
+    console.log('doc slots:: ', docSlots);
+
+  }, [docSlots])
+
+  const getAvailableSlots = async () => {
+    setDocSlots([]);
+
+    let today = new Date();
+    // console.log(today);
+
+    for (let i = 0; i < 7; i++) {
+      // getting date with index
+      let currenDate = new Date(today);
+      currenDate.setDate(today.getDate() + i)
+
+      // setting end time of the date with index
+      let endTime = new Date();
+      endTime.setDate(today.getDate() + i);
+      endTime.setHours(21, 0, 0, 0);
+      // console.log(endTime);
+
+
+      // setting hours
+      if (today.getDate() === currenDate.getDate()) {
+        currenDate.setHours(currenDate.getHours() > 10 ? currenDate.getHours() + 1 : 10);
+        currenDate.getMinutes(currenDate.getMinutes > 30 ? 30 : 0)
+      }
+      else {
+        currenDate.setHours(10);
+        currenDate.setMinutes(0);
+      }
+
+      let timeSlots = [];
+
+      while (currenDate < endTime) {
+        let formattedTime = currenDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        timeSlots.push({
+          dateTime: new Date(currenDate),
+          time: formattedTime,
+        })
+
+        // increment time by 30 mins
+        currenDate.setMinutes(currenDate.getMinutes() + 30);
+      }
+
+      setDocSlots(prev => ([...prev, timeSlots]))
+
+
+    }
+
+
+  }
 
 
   return docInfo && (
@@ -47,8 +110,53 @@ const Appointment = () => {
           </div>
           <p className='text-md md:text-lg'>Appointment Fee: {currencySymbol}{docInfo.fees}</p></div>
       </div>
-      <div className=' '>2</div>
-      <div className='border-2 '>3</div>
+      {/* booking slots */}
+      <div className='md:ml-72 md:pl-4 mt-4 font-medium text-gray-700'>
+        <p>Booking Slots</p>
+        <div className='flex gap-3 text-center  w-full overflow-x-scroll mt-4'>
+          {
+            docSlots.length && docSlots.map((item, index) => {
+
+
+              return (
+                <div >
+                  <div
+                    onClick={() => { setSlotIndex(index) }}
+                    className={`text-center rounded-full cursor-pointer min-w-16 py-6  ${slotIndex == index ? 'bg-primary text-white' : 'border border-gray-200'}`}
+                    // className='border-2 rounded-3xl w-14 h-24 py-6 px-1'
+                    key={index}>
+                    <p>{item[0] && daysOfWeek[item[0].dateTime.getDay()]}</p>
+                    <p>{item[0] && item[0].dateTime.getDate()}</p>
+                    {/* <p>{item}</p> */}
+                  </div>
+
+                </div>
+              )
+            })
+          }
+
+
+        </div>
+        <div className='flex gap-3 text-sm mt-4 w-full overflow-x-scroll'>
+          {
+            docSlots.length && docSlots[slotIndex].map((item, index) => {
+              console.log('item:: ', item.time.split(',')[1]);
+              return (
+
+                <p
+                  key={index}
+                  onClick={() => {setSlotTime(item.time) }}
+                  className={`cursor-pointer rounded-full font-light flex-shrink-0 px-5 py-2 ${item.time === slotTime ? 'bg-primary text-white' : 'border  border-gray-200'}`}
+                >
+                  {item.time}
+                </p>
+
+              )
+            })
+          }
+        </div>
+      </div>
+      <div className=' '>3</div>
     </div>
   )
 }
