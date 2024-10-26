@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AppContext } from '../context/AppContext';
 import { assets } from '../assets/assets';
+import RelatedDoctors from '../components/RelatedDoctors';
 
 const Appointment = () => {
 
@@ -140,12 +141,12 @@ const Appointment = () => {
         <div className='flex gap-3 text-sm mt-4 w-full overflow-x-scroll'>
           {
             docSlots.length && docSlots[slotIndex].map((item, index) => {
-              console.log('item:: ', item.time.split(',')[1]);
+              console.log('item:: ', item.time);
               return (
 
                 <p
                   key={index}
-                  onClick={() => {setSlotTime(item.time) }}
+                  onClick={() => { setSlotTime(item.time) }}
                   className={`cursor-pointer rounded-full font-light flex-shrink-0 px-5 py-2 ${item.time === slotTime ? 'bg-primary text-white' : 'border  border-gray-200'}`}
                 >
                   {item.time}
@@ -155,8 +156,12 @@ const Appointment = () => {
             })
           }
         </div>
+        <button className='mt-5 bg-primary font-light rounded-full text-sm text-white px-9 py-1'>Book an Appointment</button>
       </div>
-      <div className=' '>3</div>
+      {/* Listing related doctors */}
+
+      <RelatedDoctors docId={docId} speciality={docInfo.speciality}/>
+
     </div>
   )
 }
