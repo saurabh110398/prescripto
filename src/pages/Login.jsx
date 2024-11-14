@@ -8,15 +8,15 @@ const Login = () => {
     const [login, setlogin] = useState(true);
     const [localData, setLocalData] = useState('');
 
-    useEffect(()=>{
-        console.log('localData::',localData);
-        
-    },[localData])
+    useEffect(() => {
+        console.log('localData::', localData);
+
+    }, [localData])
 
     const handleChange = (e) => {
-        let {name, value} = e.target;
+        let { name, value } = e.target;
 
-        setLocalData(prev=>({
+        setLocalData(prev => ({
             ...prev,
             [name]: value
         }))
@@ -27,7 +27,7 @@ const Login = () => {
     return (
         <div className="flex justify-center">
             <div className="w-96 border rounded-md p-8 space-y-4 shadow-lg">
-                <b className="text-gray-700 text-2xl font-semibold">{login ? 'Login': 'Create Account'}</b>
+                <b className="text-gray-700 text-2xl font-semibold">{login ? 'Login' : 'Create Account'}</b>
                 <p className="text-gray-600  text-sm">Please {login ? 'log in' : 'sign up'} to book appointment</p>
                 <div className="flex flex-col text-gray-500  space-y-3">
                     {!login &&

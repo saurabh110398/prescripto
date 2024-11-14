@@ -9,6 +9,7 @@ const Doctors = () => {
   let navigate = useNavigate();
 
   let [filterDoc, setFilterDoc] = useState([]);
+  const [showFilter, setShowFilter] = useState(false)
 
   const applyFilter = () => {
     if (speciality) {
@@ -26,23 +27,25 @@ const Doctors = () => {
   return (
     <div className='space-y-5'>
       <p className='text-gray-700 text-lg'>Browse through the doctors specialist.</p>
-      <button className='text-gray-500 border px-3 py-1 text-lg rounded-md flex flex-col md:hidden'>Filters</button>
+
+      <button className={`text-gray-500 border px-3 py-1 text-lg rounded-md flex flex-col
+          ${showFilter ? 'bg-primary text-white' : ''}`}
+        onClick={() => { setShowFilter(prev => !prev) }}
+      >
+        Filters
+      </button>
+
       <div className='flex  gap-2 w-full '>
+
         {/* buttons */}
-        <div className='hidden md:flex flex-col justify-start rounded-sm gap-2 w-52'>
-          {/* {
-            doctors.map(ele=>{
-              return(
-                <button onClick={()=>{navigate(`/doctors/${ele.speciality}`)}} className='px-3 py-2 border rounded-md '>{ele.speciality}</button>
-              )
-            })
-          } */}
-          <button onClick={() =>  { speciality === 'Gynecologist'? navigate('/doctors'): navigate('/doctors/Gynecologist') }} className= {`px-3 py-2 border rounded-md ${speciality === 'Gynecologist' ? 'bg-indigo-100 text-black' : ''}`} >Gynecologist</button>
-          <button onClick={() =>  { speciality === 'Dermatologist'?navigate('/doctors'): navigate('/doctors/Dermatologist') }} className= {`px-3 py-2 border rounded-md ${speciality === 'Dermatologist' ? 'bg-indigo-100 text-black' : ''}`}>Dermatologist</button>
-          <button onClick={() =>  { speciality === 'Pediatricians'?navigate('/doctors'): navigate(`/doctors/Pediatricians`) }} className= {`px-3 py-2 border rounded-md ${speciality === 'Pediatricians' ? 'bg-indigo-100 text-black' : ''}`}>Pediatricians</button>
-          <button onClick={() =>  { speciality === 'General physician'?navigate('/doctors'): navigate(`/doctors/General physician`) }} className= {`px-3 py-2 border rounded-md ${speciality === 'General physician' ? 'bg-indigo-100 text-black' : ''}`}>General Physician</button>
-          <button onClick={() =>  { speciality === 'Neurologist'?navigate('/doctors'): navigate(`/doctors/Neurologist`) }} className= {`px-3 py-2 border rounded-md ${speciality === 'Neurologist' ? 'bg-indigo-100 text-black' : ''}`}>Neurologist</button>
-          <button onClick={() =>  { speciality === 'Gastroenterologist'?navigate('/doctors'): navigate(`/doctors/Gastroenterologist`) }} className= {`px-3 py-2 border rounded-md ${speciality === 'Gastroenterologist' ? 'bg-indigo-100 text-black' : ''}`}>Gastroenterologist</button>
+        <div className={`flex-col justify-start rounded-sm gap-2 w-52 ${showFilter ? 'flex': 'hidden sm:flex'}`} >
+
+          <button onClick={() => { speciality === 'Gynecologist' ? navigate('/doctors') : navigate('/doctors/Gynecologist') }} className={`px-3 py-2 border rounded-md ${speciality === 'Gynecologist' ? 'bg-indigo-100 text-black' : ''}`} >Gynecologist</button>
+          <button onClick={() => { speciality === 'Dermatologist' ? navigate('/doctors') : navigate('/doctors/Dermatologist') }} className={`px-3 py-2 border rounded-md ${speciality === 'Dermatologist' ? 'bg-indigo-100 text-black' : ''}`}>Dermatologist</button>
+          <button onClick={() => { speciality === 'Pediatricians' ? navigate('/doctors') : navigate(`/doctors/Pediatricians`) }} className={`px-3 py-2 border rounded-md ${speciality === 'Pediatricians' ? 'bg-indigo-100 text-black' : ''}`}>Pediatricians</button>
+          <button onClick={() => { speciality === 'General physician' ? navigate('/doctors') : navigate(`/doctors/General physician`) }} className={`px-3 py-2 border rounded-md ${speciality === 'General physician' ? 'bg-indigo-100 text-black' : ''}`}>General Physician</button>
+          <button onClick={() => { speciality === 'Neurologist' ? navigate('/doctors') : navigate(`/doctors/Neurologist`) }} className={`px-3 py-2 border rounded-md ${speciality === 'Neurologist' ? 'bg-indigo-100 text-black' : ''}`}>Neurologist</button>
+          <button onClick={() => { speciality === 'Gastroenterologist' ? navigate('/doctors') : navigate(`/doctors/Gastroenterologist`) }} className={`px-3 py-2 border rounded-md ${speciality === 'Gastroenterologist' ? 'bg-indigo-100 text-black' : ''}`}>Gastroenterologist</button>
         </div>
 
         {/* docs */}
